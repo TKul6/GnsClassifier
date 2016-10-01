@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Initializer",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Analyzer", "GNSClassifier.Analyzer\GnsClassifier.Analyzer.csproj", "{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Server.Khalili", "GnsClassifier.Server.Khalili\GnsClassifier.Server.Khalili.csproj", "{4DFD7BA1-0BA6-46EF-87F5-04DE8E6FB443}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DFD7BA1-0BA6-46EF-87F5-04DE8E6FB443}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DFD7BA1-0BA6-46EF-87F5-04DE8E6FB443}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DFD7BA1-0BA6-46EF-87F5-04DE8E6FB443}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DFD7BA1-0BA6-46EF-87F5-04DE8E6FB443}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
