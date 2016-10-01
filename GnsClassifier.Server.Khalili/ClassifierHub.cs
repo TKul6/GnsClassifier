@@ -74,6 +74,10 @@ namespace GnsClassifier.Server.Khalili
         }
 
 
+        public void GetPersonalScore()
+        {
+            Clients.Caller.getPersonalResult(_contestDb.GetEntries()[Context.User.Identity.Name]);
+        }
 
         private void UpdateUserContextResults()
         {
