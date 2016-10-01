@@ -13,6 +13,10 @@ namespace GnsClassifier.Server.Khalili
     {
         private readonly IDictionaryDb<string, ClassifierResult> _resultsDb;
         private readonly IDictionaryDb<string, int> _contestDb;
+
+        /// <summary>
+        /// The number of unclassified words
+        /// </summary>
         private long _unClassifiedWordCount;
 
         public ClassifierHub()
@@ -23,11 +27,6 @@ namespace GnsClassifier.Server.Khalili
             _contestDb = new DictionaryFileDb<string, int>(contestDbLocation);
 
             _unClassifiedWordCount = _resultsDb.GetEntries().Count(entry => entry.Value == ClassifierResult.Unknown);
-        }
-
-        public void Hello()
-        {
-            Clients.All.hello();
         }
 
 
@@ -53,6 +52,9 @@ namespace GnsClassifier.Server.Khalili
             return unknownWords;
         }
 
+        /// <summary>
+        /// Calls a callback in the client that updates the number of unclassified words
+        /// </summary>
         public void UpdateUnclassifiedCount()
         {
             Clients.All.updateUnclassifiedCount(Interlocked.Read(ref _unClassifiedWordCount));
@@ -73,7 +75,9 @@ namespace GnsClassifier.Server.Khalili
             UpdateUserContextResults();
         }
 
-
+        /// <summary>
+        /// Calls a callback in the client that updates his personal score
+        /// </summary>
         public void GetPersonalScore()
         {
             Clients.Caller.getPersonalResult(_contestDb.GetEntries()[Context.User.Identity.Name]);
