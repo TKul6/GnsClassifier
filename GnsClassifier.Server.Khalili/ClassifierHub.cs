@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using GnsClassifier.Common;
 using Microsoft.AspNet.SignalR;
@@ -12,6 +13,7 @@ namespace GnsClassifier.Server.Khalili
     {
         private readonly IDictionaryDb<string, ClassifierResult> _resultsDb;
         private readonly IDictionaryDb<string, int> _contestDb;
+        private long _unClassifiedWordCount;
 
         public ClassifierHub()
         {
@@ -19,6 +21,8 @@ namespace GnsClassifier.Server.Khalili
             var contestDbLocation = ConfigurationManager.AppSettings["contestFileDbLocation"];
             _resultsDb = new DictionaryFileDb<string, ClassifierResult>(resultsDbLocation);
             _contestDb = new DictionaryFileDb<string, int>(contestDbLocation);
+
+            _unClassifiedWordCount = _resultsDb.GetEntries().Count(entry => entry.Value == ClassifierResult.Unknown);
         }
 
         public void Hello()
@@ -40,8 +44,6 @@ namespace GnsClassifier.Server.Khalili
             return word;
         }
 
-
-
         private IList<string> GetUnknownWords()
         {
             var wordsResults = _resultsDb.GetEntries();
@@ -51,6 +53,11 @@ namespace GnsClassifier.Server.Khalili
             return unknownWords;
         }
 
+        public void UpdateUnclassifiedCount()
+        {
+            Clients.All.updateUnclassifiedCount(Interlocked.Read(ref _unClassifiedWordCount));
+        }
+
         public void SubmitClassifierResult(string word, ClassifierResult result)
         {
             if (string.IsNullOrEmpty(word))
@@ -58,6 +65,11 @@ namespace GnsClassifier.Server.Khalili
                 return;
             }
             _resultsDb.UpdateEntry(word, result);
+
+            Interlocked.Decrement(ref _unClassifiedWordCount);
+
+            UpdateUnclassifiedCount();
+
             UpdateUserContextResults();
         }
 
