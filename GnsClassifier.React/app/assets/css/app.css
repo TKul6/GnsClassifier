@@ -1,0 +1,48 @@
+
+div[class*="EditorToolbar"] {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.public-DraftEditor-content {
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.public-DraftStyleDefault-ltr {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.rightAlign {
+    margin-top: 12px;
+    direction: rtl;
+}
+
+.reportPopover > div {
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 5px;
+}
+
+.classifierDiv {
+    margin: 15px
+}
+
+.classifierButton {
+    margin: 2px;
+    /*width: 300px;*/
+/*    font-size: 40px;*/
+    /*height: 50px;*/
+}
+
+.classifierWord {
+    font-size: 70px;
+    text-color: darkolivegreen;
+}
+
+.titleText {
+    font-weight: bold;
+    font-size: 50px;
+    text-decoration: underline;
+}
