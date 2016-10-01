@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Client", "GNSClassifier.Client\GnsClassifier.Client.csproj", "{A49983AA-E81B-4C4D-819C-1B864826DB65}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C658AB24-ADF2-47D1-9915-16D4651E8FAB} = {C658AB24-ADF2-47D1-9915-16D4651E8FAB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Server", "GNSClassifier.Server\GnsClassifier.Server.csproj", "{C658AB24-ADF2-47D1-9915-16D4651E8FAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Common", "GNSClassifier.Common\GnsClassifier.Common.csproj", "{45118948-18F2-4E84-9898-C3C752032507}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Initializer", "GNSClassifier.Initializer\GnsClassifier.Initializer.csproj", "{A7B04FA7-D041-447A-9ECF-7C6DB15CA960}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GnsClassifier.Analyzer", "GNSClassifier.Analyzer\GnsClassifier.Analyzer.csproj", "{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A49983AA-E81B-4C4D-819C-1B864826DB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A49983AA-E81B-4C4D-819C-1B864826DB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A49983AA-E81B-4C4D-819C-1B864826DB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A49983AA-E81B-4C4D-819C-1B864826DB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C658AB24-ADF2-47D1-9915-16D4651E8FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C658AB24-ADF2-47D1-9915-16D4651E8FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C658AB24-ADF2-47D1-9915-16D4651E8FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C658AB24-ADF2-47D1-9915-16D4651E8FAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45118948-18F2-4E84-9898-C3C752032507}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45118948-18F2-4E84-9898-C3C752032507}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45118948-18F2-4E84-9898-C3C752032507}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45118948-18F2-4E84-9898-C3C752032507}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B04FA7-D041-447A-9ECF-7C6DB15CA960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B04FA7-D041-447A-9ECF-7C6DB15CA960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B04FA7-D041-447A-9ECF-7C6DB15CA960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B04FA7-D041-447A-9ECF-7C6DB15CA960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A26A26A-2FF9-470F-9DF8-76C309F7BF11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
