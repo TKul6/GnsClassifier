@@ -13,20 +13,24 @@ namespace GnsClassifier.Server.Khalili
     {
         private readonly IDictionaryDb<string, ClassifierResult> _resultsDb;
         private readonly IDictionaryDb<string, int> _contestDb;
+        private IWinnerTracker _winnerTracker;
 
         /// <summary>
         /// The number of unclassified words
         /// </summary>
         private long _unClassifiedWordCount;
-
+        
         public ClassifierHub()
         {
+            //Todo: add this settings to the config file.
             var resultsDbLocation = ConfigurationManager.AppSettings["resultsFileDbLocation"];
             var contestDbLocation = ConfigurationManager.AppSettings["contestFileDbLocation"];
             _resultsDb = new DictionaryFileDb<string, ClassifierResult>(resultsDbLocation);
             _contestDb = new DictionaryFileDb<string, int>(contestDbLocation);
 
             _unClassifiedWordCount = _resultsDb.GetEntries().Count(entry => entry.Value == ClassifierResult.Unknown);
+
+            _winnerTracker = new WinnerTracker(_contestDb.GetEntries(),int.Parse(ConfigurationManager.AppSettings["numberOfWinnersToTrack"]));
         }
 
 
@@ -93,6 +97,23 @@ namespace GnsClassifier.Server.Khalili
                 userScore = contestResults[userName] + 1;
             }
             _contestDb.UpdateEntry(userName, userScore);
+
+            UpdateTopScores(userName, userScore);
+            
+        }
+
+        /// <summary>
+        /// Updates the <see cref="_winnerTracker"/> and the users if necessary
+        /// </summary>
+        /// <param name="userName">The current user</param>
+        /// <param name="userScore">The <see cref="userName"/>'s score</param>
+        private void UpdateTopScores(string userName, int userScore)
+        {
+            if (_winnerTracker.Update(userName, userScore))
+            {
+
+                Clients.All.topResultsChanged(_winnerTracker.TopUsers);
+            }
         }
     }
 }
