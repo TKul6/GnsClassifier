@@ -23,7 +23,7 @@ namespace GnsClassifier.Server.Khalili
         
         public ClassifierHub()
         {
-            //Todo: add this settings to the config file.
+
             var resultsDbLocation = ConfigurationManager.AppSettings["resultsFileDbLocation"];
             var contestDbLocation = ConfigurationManager.AppSettings["contestFileDbLocation"];
             _resultsDb = new DictionaryFileDb<string, ClassifierResult>(resultsDbLocation);
