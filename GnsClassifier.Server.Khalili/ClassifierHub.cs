@@ -14,6 +14,7 @@ namespace GnsClassifier.Server.Khalili
         private readonly IDictionaryDb<string, ClassifierResult> _resultsDb;
         private readonly IDictionaryDb<string, int> _contestDb;
         private IWinnerTracker _winnerTracker;
+        private Random _randomizer;
 
         /// <summary>
         /// The number of unclassified words
@@ -31,6 +32,8 @@ namespace GnsClassifier.Server.Khalili
             _unClassifiedWordCount = _resultsDb.GetEntries().Count(entry => entry.Value == ClassifierResult.Unknown);
 
             _winnerTracker = new WinnerTracker(_contestDb.GetEntries(),int.Parse(ConfigurationManager.AppSettings["numberOfWinnersToTrack"]));
+
+            _randomizer = new Random();
         }
 
 
@@ -41,8 +44,8 @@ namespace GnsClassifier.Server.Khalili
             {
                 return "";
             }
-            var randomizer = new Random();
-            var index = randomizer.Next(words.Count);
+           
+            var index = _randomizer.Next(words.Count);
             var word = words[index];
             return word;
         }
