@@ -59,8 +59,8 @@ namespace GnsClassifier.Client
         /// <returns></returns>
         public async Task InitializeConnection()
         {
-            _disposables.Add(_proxy.On<UserData[]>("topResultsChanged", OnTopResultChanged));
-            _disposables.Add(_proxy.On<int>("updateUnclassifiedCount", OnUnClassifiedWordCountChanged));
+            _disposables.Add(_proxy.On<UserData[]>(Constants.TOP_RESULTS_CHANGED, OnTopResultChanged));
+            _disposables.Add(_proxy.On<int>(Constants.UPDATE_UNCLASSIFIED_COUNT, OnUnClassifiedWordCountChanged));
             await _hubConnection.Start().ConfigureAwait(false);
 
         }

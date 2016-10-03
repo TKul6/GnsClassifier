@@ -10,5 +10,10 @@ namespace GnsClassifier.Common
     {
         public const string USER_NAME = "UserName";
 
+        public const string TOP_RESULTS_CHANGED = "topResultsChanged";
+
+        public const string UPDATE_UNCLASSIFIED_COUNT = "updateUnclassifiedCount";
+
+
     }
 }
