@@ -128,11 +128,25 @@ namespace GnsClassifier.Server.Khalili
             }
         }
 
+
+        /// <summary>
+        /// Gets the <see cref="_unClassifiedWordCount"/>
+        /// </summary>
+        /// <remarks>
+        /// this is for pool only approach, you should subscribe to a notidication in order to get real time update notifications
+        /// </remarks>
+        /// <returns></returns>
         public long GetUnclassifiedWordsCount()
         {
             return Interlocked.Read(ref _unClassifiedWordCount);
         }
 
+        /// <summary>
+        /// Gets the <see cref="_winnerTracker.TopUsers"/>
+        /// </summary>
+        ///<remarks>
+        /// this is for pool only approach, you should subscribe to a notidication in order to get real time update notifications</remarks>
+        /// <returns></returns>
         public UserData[] GetTopUsers()
         {
             return _winnerTracker.TopUsers.ToArray();
