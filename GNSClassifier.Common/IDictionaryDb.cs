@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GnsClassifier.Server
+namespace GnsClassifier.Common
 {
     public interface IDictionaryDb<TKey, TValue>
     {

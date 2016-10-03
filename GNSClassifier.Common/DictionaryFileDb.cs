@@ -2,7 +2,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace GnsClassifier.Server
+namespace GnsClassifier.Common
 {
     public class DictionaryFileDb<TKey, TValue> : IDictionaryDb<TKey, TValue>
     {
@@ -31,6 +31,7 @@ namespace GnsClassifier.Server
         private IDictionary<TKey, TValue> DeserializeEntries()
         {
             var resultsString = File.ReadAllText(_dbLocation);
+            
             var results = JsonConvert.DeserializeObject<Dictionary<TKey, TValue>>(resultsString);
             if (results == null)
             {

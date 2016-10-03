@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using GnsClassifier.Common;
 using Microsoft.AspNet.SignalR;
@@ -20,7 +21,7 @@ namespace GnsClassifier.Server.Khalili
         /// The number of unclassified words
         /// </summary>
         private long _unClassifiedWordCount;
-        
+
         public ClassifierHub()
         {
 
@@ -31,11 +32,12 @@ namespace GnsClassifier.Server.Khalili
 
             _unClassifiedWordCount = _resultsDb.GetEntries().Count(entry => entry.Value == ClassifierResult.Unknown);
 
-            _winnerTracker = new WinnerTracker(_contestDb.GetEntries(),int.Parse(ConfigurationManager.AppSettings["numberOfWinnersToTrack"]));
+            _winnerTracker = new WinnerTracker(_contestDb.GetEntries(), int.Parse(ConfigurationManager.AppSettings["numberOfWinnersToTrack"]));
 
             _randomizer = new Random();
+            
         }
-
+        
 
         public string GetWordToClassify()
         {
@@ -44,7 +46,7 @@ namespace GnsClassifier.Server.Khalili
             {
                 return "";
             }
-           
+
             var index = _randomizer.Next(words.Count);
             var word = words[index];
             return word;
@@ -85,14 +87,21 @@ namespace GnsClassifier.Server.Khalili
         /// <summary>
         /// Calls a callback in the client that updates his personal score
         /// </summary>
-        public void GetPersonalScore()
+        public int GetPersonalScore()
         {
-            Clients.Caller.getPersonalResult(_contestDb.GetEntries()[Context.User.Identity.Name]);
+
+            var userName = Context.QueryString[Constants.USER_NAME];
+
+            if (_contestDb.GetEntries().ContainsKey(userName))
+            {
+                return _contestDb.GetEntries()[userName];
+            }
+            return 0;
         }
 
         private void UpdateUserContextResults()
         {
-          var userName = Context.User.Identity.Name;
+            var userName = Context.QueryString[Constants.USER_NAME];
             var contestResults = _contestDb.GetEntries();
             var userScore = 1;
             if (contestResults.ContainsKey(userName))
@@ -102,7 +111,7 @@ namespace GnsClassifier.Server.Khalili
             _contestDb.UpdateEntry(userName, userScore);
 
             UpdateTopScores(userName, userScore);
-            
+
         }
 
         /// <summary>
@@ -114,9 +123,20 @@ namespace GnsClassifier.Server.Khalili
         {
             if (_winnerTracker.Update(userName, userScore))
             {
-
-                Clients.All.topResultsChanged(_winnerTracker.TopUsers);
+                var users = _winnerTracker.TopUsers.ToArray();
+                Clients.All.topResultsChanged(users);
             }
         }
+
+        public long GetUnclassifiedWordsCount()
+        {
+            return Interlocked.Read(ref _unClassifiedWordCount);
+        }
+
+        public UserData[] GetTopUsers()
+        {
+            return _winnerTracker.TopUsers.ToArray();
+        }
+        
     }
 }

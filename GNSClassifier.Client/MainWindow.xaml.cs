@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using System;
+using MahApps.Metro.Controls;
 
 namespace GnsClassifier.Client
 {
@@ -10,6 +11,16 @@ namespace GnsClassifier.Client
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private async void InitializePresenter(object sender, EventArgs e)
+        {
+            await ClassifierPresenter.Initialize();
+        }
+
+        private void DispodePresenter(object sender, EventArgs e)
+        {
+             ClassifierPresenter.Dispose();
         }
     }
 }

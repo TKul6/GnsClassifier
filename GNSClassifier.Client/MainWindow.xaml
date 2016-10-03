@@ -6,7 +6,7 @@
                       xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       xmlns:client="clr-namespace:GnsClassifier.Client"
                       mc:Ignorable="d"
-        Title="Gns Classifier" Height="350" Width="525">
+        Title="Gns Classifier" Height="350" Width="525" Initialized="InitializePresenter" Closed="DispodePresenter">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -17,7 +17,7 @@
     
     <Grid>
         <ContentControl>
-            <client:ClassifierPresenter/>
+            <client:ClassifierPresenter x:Name="ClassifierPresenter"/>
         </ContentControl>
     </Grid>
 </Controls:MetroWindow>

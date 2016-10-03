@@ -58,20 +58,13 @@ namespace GnsClassifier.Common
         /// <returns>A boolean indicating rather the top X results has been changed</returns>
         public bool Update(string user, int score)
         {
-            if (_topUsers.Count < _numOfUsersToTrack)
+            if (_topUsers.Count < _numOfUsersToTrack || score > _topUsers.ElementAt(_numOfUsersToTrack - 1).Score) 
             {
                 InnerUpdateScore(user, score);
 
                 return true;
             }
-
-            if (score > _topUsers.ElementAt(_numOfUsersToTrack - 1).Score)
-            {
-                InnerUpdateScore(user, score);
-
-                return true;
-            }
-
+            
             return false;
         }
 
@@ -83,13 +76,19 @@ namespace GnsClassifier.Common
         /// <param name="score">The <see cref="user"/>'s scores</param>
         private void InnerUpdateScore(string user, int score)
         {
+            if (_topUsers.Count == 0)
+            {
+                _topUsers.Add(new UserData(user,score));
+                return;
+            }
+
             int index = 0;
 
             bool userExist = false;
 
             lock (_syncObject)
             {
-                while (_topUsers[index].Score > score && index < _topUsers.Count && !userExist)
+                do
                 {
                     if (_topUsers[index].Username.Equals(user))
                     {
@@ -97,10 +96,14 @@ namespace GnsClassifier.Common
 
                         userExist = true;
                     }
+                    else
+                    {
+                        index++;
+                    }
 
-                    index++;
-                }
-                
+                } while (_topUsers[index].Score > score && index < _topUsers.Count && !userExist);
+
+
                 if (!userExist)
                 {
                     _topUsers.Insert(index, new UserData(user, score));
